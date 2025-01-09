@@ -138,14 +138,12 @@
     </style>
 </head>
 <body>
-    <audio src="./audio/bg.mp3" autoplay loop></audio>
+    <audio src="./audio/bg.mp3" autoplay loop type="audio/mp3"></audio>
     <!--<iframe class="music" width="560" height="315" src="https://www.youtube.com/embed/m0q1-vCFB0c?si=6uQE9bP-QjyvtbN5?rel=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/m0q1-vCFB0c?si=6uQE9bP-QjyvtbN5&amp;start=6?rel=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
     <nav class="navbar">
         <div class="greeting">
-            <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])): ?>
-                Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>!
-            <?php endif; ?>
+            Greeting
         </div>
         <div class="links">
             <a href="#">Dashboard</a>
@@ -203,7 +201,7 @@
     </div>
 
     <footer>
-        &copy; 2025 ING Skill Academy. All rights reserved.
+        &copy; 2025 Kritik Paudel. All rights reserved.
     </footer>
 
     <script>
