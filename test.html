@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            color: #333;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .greeting {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #feb47b;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #feb47b;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background: #ddd;
+            margin: 0;
+            padding: 0.5rem 0;
+        }
+
+        .progress-bar span {
+            display: block;
+            height: 20px;
+            width: 0%;
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        .container {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .section {
+            margin: 1rem 0;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .section:hover {
+            transform: scale(1.05);
+            background: #f9f9f9;
+        }
+
+        .section button {
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .section button:hover {
+            background: linear-gradient(135deg, #8fd3f4, #84fab0);
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .flag-form {
+            margin-top: 1rem;
+        }
+
+        .flag-form input[type="text"] {
+            padding: 0.5rem;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .flag-form button {
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .flag-form button:hover {
+            background: linear-gradient(135deg, #8fd3f4, #84fab0);
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .music{
+            display: none;
+
+        }
+    </style>
+</head>
+<body>
+    <audio src="./audio/Work Music for Deep Focus and Efficiency – Future Garage Mix [m0q1-vCFB0c].mp3" autoplay loop></audio>
+    <!--<iframe class="music" width="560" height="315" src="https://www.youtube.com/embed/m0q1-vCFB0c?si=6uQE9bP-QjyvtbN5?rel=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/m0q1-vCFB0c?si=6uQE9bP-QjyvtbN5&amp;start=6?rel=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+    <nav class="navbar">
+        <div class="greeting">
+            <?php if (isset($_SESSION['name']) && !empty($_SESSION['name'])): ?>
+                Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>!
+            <?php endif; ?>
+        </div>
+        <div class="links">
+            <a href="#">Dashboard</a>
+            <a href="#">Contact Us</a>
+            <a href="result.php">Result</a>
+        </div>
+    </nav>
+
+    <div class="progress-bar">
+        <span id="progress" style="width: 0%;"></span>
+    </div>
+
+    <div class="container">
+        <h1>Welcome to the Activities Portal</h1>
+        <p>Select an activity to get started:</p>
+
+        <div class="section">
+            <h3>Cyber Maze</h3>
+            <p>Use the arrow keys to move through the maze. Collect clues, answer questions, and reach the exit to win!</p>
+            <button onclick="location.href='./maze/index.html'">Start</button>
+
+            <div class="flag-form">
+                <form method="POST" action="submit_flag.php">
+                    <input type="text" name="flag_cyber_maze" placeholder="Enter the flag here">
+                    <button type="submit">Submit Flag</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Activity 2</h3>
+            <p>Description for Activity 2 goes here.</p>
+            <button onclick="location.href='./pictionary/index.html'">Start</button>
+
+            <div class="flag-form">
+                <form method="POST" action="submit_flag.php">
+                    <input type="text" name="flag_activity2" placeholder="Enter the flag here">
+                    <button type="submit">Submit Flag</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Activity 3</h3>
+            <p>Description for Activity 3 goes here.</p>
+            <button onclick="location.href='activity3.php'">Start</button>
+
+            <div class="flag-form">
+                <form method="POST" action="submit_flag.php">
+                    <input type="text" name="flag_activity3" placeholder="Enter the flag here">
+                    <button type="submit">Submit Flag</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 ING Skill Academy. All rights reserved.
+    </footer>
+
+    <script>
+        // Example progress calculation logic
+        const progress = document.getElementById('progress');
+        let tasksCompleted = 0; // This should dynamically update based on submitted flags
+        const totalTasks = 3;
+
+        function updateProgress() {
+            const progressPercentage = (tasksCompleted / totalTasks) * 100;
+            progress.style.width = progressPercentage + '%';
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>

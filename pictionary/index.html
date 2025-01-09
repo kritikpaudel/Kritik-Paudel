@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hardware Pictionary - Lucky Draw</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: #fff;
+      min-height: 100vh;
+    }
+    h1 {
+      margin: 20px;
+      text-align: center;
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00ff; }
+      100% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff; }
+    }
+    .game-container {
+      max-width: 800px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .lucky-draw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .card {
+      width: 100%;
+      height: 150px;
+      background: #fff;
+      color: #000;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .card:hover {
+      transform: scale(1.1);
+      background: #ff00ff;
+      color: #fff;
+    }
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .card.revealed img {
+      display: block;
+    }
+    .card.revealed span {
+      display: none;
+    }
+    .answers input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      font-size: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: border-color 0.3s ease;
+    }
+    .answers input.error {
+      border-color: red;
+      background: #ffe5e5;
+    }
+    .answers input:focus {
+      outline: none;
+      border-color: #ff00ff;
+    }
+    .submit-btn {
+      background: #ff00ff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .submit-btn:hover {
+      background: #e000e0;
+    }
+    .message {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <audio src="../audio/PUBG.mp3" autoplay loop></audio>
+  <h1>Guess The Term</h1>
+  <div class="game-container">
+    <div class="lucky-draw-grid">
+      <!-- Cards for the lucky draw -->
+      <div class="card" onclick="revealCard(this, 'hardware1.jpg')">
+        <span>Click to reveal</span>
+        <img src="../image/RAM.png" alt="Hardware 1">
+      </div>
+      <div class="card" onclick="revealCard(this, 'hardware2.jpg')">
+        <span>Click to reveal</span>
+        <img src="../image/SSD.jpg" alt="Hardware 2">
+      </div>
+      <div class="card" onclick="revealCard(this, 'hardware3.jpg')">
+        <span>Click to reveal</span>
+        <img src="hardware3.jpg" alt="Hardware 3">
+      </div>
+      <div class="card" onclick="revealCard(this, 'hardware4.jpg')">
+        <span>Click to reveal</span>
+        <img src="hardware4.jpg" alt="Hardware 4">
+      </div>
+      <div class="card" onclick="revealCard(this, 'hardware5.jpg')">
+        <span>Click to reveal</span>
+        <img src="hardware5.jpg" alt="Hardware 5">
+      </div>
+    </div>
+    <div class="answers">
+      <input type="text" id="answer1" placeholder="Enter your answer for Image 1">
+      <input type="text" id="answer2" placeholder="Enter your answer for Image 2">
+      <input type="text" id="answer3" placeholder="Enter your answer for Image 3">
+      <input type="text" id="answer4" placeholder="Enter your answer for Image 4">
+      <input type="text" id="answer5" placeholder="Enter your answer for Image 5">
+    </div>
+    <button class="submit-btn" onclick="checkAnswers()">Submit</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const correctAnswers = ["RAM", "SSD", "monitor", "printer", "router"]; // Update these answers
+
+    function revealCard(card, imgSrc) {
+      card.classList.add('revealed');
+    }
+
+    function checkAnswers() {
+      let allCorrect = true;
+
+      for (let i = 1; i <= 5; i++) {
+        const userAnswer = document.getElementById(`answer${i}`);
+        const correctAnswer = correctAnswers[i - 1];
+
+        if (userAnswer.value.trim().toLowerCase() === correctAnswer) {
+          userAnswer.classList.remove('error');
+        } else {
+          userAnswer.classList.add('error');
+          allCorrect = false;
+        }
+      }
+
+      const message = document.getElementById('message');
+      if (allCorrect) {
+        message.textContent = "🎉 Congratulations! You got all answers correct!";
+      } else {
+        message.textContent = "";
+      }
+    }
+  </script>
+</body>
+</html>
