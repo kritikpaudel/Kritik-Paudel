@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hardware Pictionary - Lucky Draw</title>
+  <title>Challenge 2: Guess The Term</title>
+  <link rel="icon" href="../image/cyber.png">
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -58,25 +59,25 @@
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
+    .card {
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+    .card.revealed {
+      transform: rotateY(180deg);
+    }
+    .card span, .card img {
+      backface-visibility: hidden;
+      position: absolute;
+    }
+
     .card:hover {
       transform: scale(1.1);
       background: #ff00ff;
       color: #fff;
     }
-    .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-    .card.revealed img {
-      display: block;
-    }
-    .card.revealed span {
-      display: none;
-    }
     .answers input {
-      width: 100%;
+      width: 95%;
       padding: 10px;
       margin-bottom: 10px;
       border: 2px solid #fff;
@@ -116,70 +117,104 @@
 <body>
   <audio src="../audio/PUBG.mp3" autoplay loop></audio>
   <h1>Guess The Term</h1>
-  <div class="game-container">
-    <div class="lucky-draw-grid">
-      <!-- Cards for the lucky draw -->
-      <div class="card" onclick="revealCard(this, 'hardware1.jpg')">
-        <span>Click to reveal</span>
-        <img src="../image/RAM.png" alt="Hardware 1">
-      </div>
-      <div class="card" onclick="revealCard(this, 'hardware2.jpg')">
-        <span>Click to reveal</span>
-        <img src="../image/SSD.jpg" alt="Hardware 2">
-      </div>
-      <div class="card" onclick="revealCard(this, 'hardware3.jpg')">
-        <span>Click to reveal</span>
-        <img src="hardware3.jpg" alt="Hardware 3">
-      </div>
-      <div class="card" onclick="revealCard(this, 'hardware4.jpg')">
-        <span>Click to reveal</span>
-        <img src="hardware4.jpg" alt="Hardware 4">
-      </div>
-      <div class="card" onclick="revealCard(this, 'hardware5.jpg')">
-        <span>Click to reveal</span>
-        <img src="hardware5.jpg" alt="Hardware 5">
-      </div>
+<div class="game-container">
+  <div class="lucky-draw-grid">
+    <!-- Cards for the lucky draw -->
+    <div class="card" onclick="revealCard(this, '🎣💻')">
+      <span>Click to reveal</span>
     </div>
-    <div class="answers">
-      <input type="text" id="answer1" placeholder="Enter your answer for Image 1">
-      <input type="text" id="answer2" placeholder="Enter your answer for Image 2">
-      <input type="text" id="answer3" placeholder="Enter your answer for Image 3">
-      <input type="text" id="answer4" placeholder="Enter your answer for Image 4">
-      <input type="text" id="answer5" placeholder="Enter your answer for Image 5">
+    <div class="card" onclick="revealCard(this, '🔑 🔐 📱')">
+      <span>Click to reveal</span>
     </div>
-    <button class="submit-btn" onclick="checkAnswers()">Submit</button>
-    <div class="message" id="message"></div>
+    <div class="card" onclick="revealCard(this, '🧑‍🦲🗡️👑⚰️')">
+      <span>Click to reveal</span>
+    </div>
+    <div class="card" onclick="revealCard(this, '👥 🧠')">
+      <span>Click to reveal</span>
+    </div>
+    <div class="card" onclick="revealCard(this, '🏦 💰 🥷')">
+      <span>Click to reveal</span>
+    </div>
   </div>
+  <div class="answers">
+    <input type="text" id="answer1" placeholder="Enter your answer for Emoji 1"><span class="feedback"></span>
+    <input type="text" id="answer2" placeholder="Enter your answer for Emoji 2"><span class="feedback"></span>
+    <input type="text" id="answer3" placeholder="Enter your answer for Emoji 3"><span class="feedback"></span>
+    <input type="text" id="answer4" placeholder="Enter your answer for Emoji 4"><span class="feedback"></span>
+    <input type="text" id="answer5" placeholder="Enter your answer for Emoji 5"><span class="feedback"></span>
+  </div>
+  <button class="submit-btn" onclick="checkAnswers()">Submit</button>
+  <button class="submit-btn" onclick="resetGame()">Reset</button>
+  <div class="message" id="message"></div>
+</div>
 
-  <script>
-    const correctAnswers = ["RAM", "SSD", "monitor", "printer", "router"]; // Update these answers
+<script>
+  // Disable Right-Click
+  document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
 
-    function revealCard(card, imgSrc) {
+        // Disable Key Combinations
+        document.addEventListener('keydown', function (e) {
+            // Check for specific key combinations
+            if (
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || // Ctrl+Shift+I
+                (e.ctrlKey && e.key === 'U') ||              // Ctrl+U
+                (e.ctrlKey && e.key === 'S') ||              // Ctrl+S
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || // Ctrl+Shift+J
+                (e.key === 'F12')                            // F12
+            ) {
+                e.preventDefault();
+                alert("This shortcut is disabled.");
+            }
+        });
+  const correctAnswers = ["Phishing", "Two-Factor Authentication", "Kattappa", "Social Engineering", "Cyber Heist"];
+  function revealCard(card, emoji) {
+    if (!card.classList.contains('revealed')) {
+      card.innerHTML = `<span>${emoji}</span>`;
       card.classList.add('revealed');
     }
+  }
 
-    function checkAnswers() {
-      let allCorrect = true;
+  function checkAnswers() {
+    let allCorrect = true;
 
-      for (let i = 1; i <= 5; i++) {
-        const userAnswer = document.getElementById(`answer${i}`);
-        const correctAnswer = correctAnswers[i - 1];
+    for (let i = 1; i <= 5; i++) {
+      const userAnswer = document.getElementById(`answer${i}`);
+      const correctAnswer = correctAnswers[i - 1];
 
-        if (userAnswer.value.trim().toLowerCase() === correctAnswer) {
-          userAnswer.classList.remove('error');
-        } else {
-          userAnswer.classList.add('error');
-          allCorrect = false;
-        }
-      }
-
-      const message = document.getElementById('message');
-      if (allCorrect) {
-        message.textContent = "🎉 Congratulations! You got all answers correct!";
+      if (userAnswer.value.trim().toLowerCase() === correctAnswer.toLowerCase()) {
+        userAnswer.classList.remove('error');
+        userAnswer.nextElementSibling.textContent = ""; // Clear feedback
       } else {
-        message.textContent = "";
+        userAnswer.classList.add('error');
+        userAnswer.nextElementSibling.textContent = `Incorrect! Correct answer starts with "${correctAnswer.charAt(0).toUpperCase()}"`;
+        allCorrect = false;
       }
     }
-  </script>
+
+    const message = document.getElementById('message');
+    if (allCorrect) {
+      message.textContent = "🎉 Congratulations! You got all answers correct! Your Flag is: f!@g{G0t_2nd_Fl@g_t00}";
+    } else {
+      message.textContent = "❌ Some answers are incorrect. Try again!";
+    }
+  }
+
+  function resetGame() {
+    document.querySelectorAll('.card').forEach(card => {
+      card.innerHTML = `<span>Click to reveal</span>`;
+      card.classList.remove('revealed');
+    });
+
+    document.querySelectorAll('.answers input').forEach(input => {
+      input.value = "";
+      input.classList.remove('error');
+      input.nextElementSibling.textContent = ""; // Clear feedback
+    });
+
+    document.getElementById('message').textContent = "";
+  }
+</script>
 </body>
 </html>

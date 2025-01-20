@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Challenge 5: Escape the Maze</title>
+    <title>Challenge 1: Escape the Maze</title>
+    <link rel="icon" href="../image/cyber.png">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -95,6 +96,25 @@
     </div>
 
     <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Disable Key Combinations
+        document.addEventListener('keydown', function (e) {
+            // Check for specific key combinations
+            if (
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || // Ctrl+Shift+I
+                (e.ctrlKey && e.key === 'U') ||              // Ctrl+U
+                (e.ctrlKey && e.key === 'S') ||              // Ctrl+S
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || // Ctrl+Shift+J
+                (e.key === 'F12')                            // F12
+            ) {
+                e.preventDefault();
+                alert("This shortcut is disabled.");
+            }
+        });
         const maze = [
             ['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'],
             ['W', 'P', 'P', 'T', 'W', 'P', 'P', 'C', 'P', 'W'],
@@ -115,19 +135,19 @@
 
         const questions = {
             Q1: {
-                question: "Cybersecurity is like a secret recipe for a delicious cake. Which ingredient represents the principle of ensuring the cake's recipe remains hidden from competitors?",
-                options: ["a) Availability", "b) Integrity", "c) Confidentiality", "d) Authenticity"],
-                answer: "c"
+                question: "If encryption was a superhero, what would its superpower be?",
+                options: ["a) Flying around the internet, making things invisible", "b) Turning plain text into gibberish only the chosen can read", "c) Building firewalls with lasers", "d) Saving kittens stuck in unsecure servers"],
+                answer: "b"
             },
             Q2: {
-                question: "A popular social media platform experiences a sudden outage, making it inaccessible to millions of users. Which principle of the CIA triad has been compromised?",
-                options: ["a) Availability", "b) Integrity", "c) Confidentiality", "d) Authenticity"],
-                answer: "a"
+                question: "Which malware would star in a spy movie?",
+                options: ["a) Ransomware (its got drama!)", "b) Adware (constantly popping up uninvited", "c) Worm (spreads faster than rumors)", "d) Keylogger (sneaky, secretive, and knows your every move)"],
+                answer: "d"
             },
             Q3: {
-                question: "A renowned art museum uses advanced security measures to protect its priceless paintings. Which principle of the CIA triad is prioritized by these measures?",
-                options: ["a) Availability", "b) Integrity", "c) Confidentiality", "d) Authenticity"],
-                answer: "b"
+                question: "How can you stop a Man-in-the-Middle attack?",
+                options: ["a) Say “Please stop” really nicely", "b) Hire a bouncer for your router", "c) Use HTTPS to encrypt your traffic", "d) Block the “man” on social media"],
+                answer: "c"
             }
         };
 

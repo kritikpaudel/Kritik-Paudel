@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>HOME | GPPC</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./image/cyber.png">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -73,7 +74,7 @@
         }
 
         .section:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             background: #f9f9f9;
         }
 
@@ -135,23 +136,53 @@
             display: none;
 
         }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .winner-popup h1 {
+            font-size: 2.5rem;
+            color: #f39c12;
+            animation: bounce 1s infinite;
+        }
+
+        .winner-popup p {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-top: 10px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
     </style>
 </head>
 <body>
-    <audio src="./audio/bg.mp3" autoplay loop type="audio/mp3"></audio>
+    <audio src="./audio/bg.mp3" autoplay loop></audio>
     <!--<iframe class="music" width="560" height="315" src="https://www.youtube.com/embed/m0q1-vCFB0c?si=6uQE9bP-QjyvtbN5?rel=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/m0q1-vCFB0c?si=6uQE9bP-QjyvtbN5&amp;start=6?rel=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
     <nav class="navbar">
         <div class="greeting">
-            Greeting
+            Greetings, Beautiful Souls. You are the real <strong style="color: palevioletred;">BOSS</strong> !
         </div>
         <div class="links">
-            <a href="#">Dashboard</a>
-            <a href="#">Contact Us</a>
-            <a href="result.php">Result</a>
+            <a href="gppc.kritikpaudel.com.np">Refresh</a>
         </div>
     </nav>
-
     <div class="progress-bar">
         <span id="progress" style="width: 0%;"></span>
     </div>
@@ -166,7 +197,7 @@
             <button onclick="location.href='./maze/index.html'">Start</button>
 
             <div class="flag-form">
-                <form method="POST" action="submit_flag.php">
+                <form>
                     <input type="text" name="flag_cyber_maze" placeholder="Enter the flag here">
                     <button type="submit">Submit Flag</button>
                 </form>
@@ -174,12 +205,11 @@
         </div>
 
         <div class="section">
-            <h3>Activity 2</h3>
-            <p>Description for Activity 2 goes here.</p>
+            <h3>Guess The Term</h3>
+            <p>Emoji Quiz - Guess the Word. Emojis will be reveal, think deep and relate it to pass this quiz.</p>
             <button onclick="location.href='./pictionary/index.html'">Start</button>
-
             <div class="flag-form">
-                <form method="POST" action="submit_flag.php">
+                <form>
                     <input type="text" name="flag_activity2" placeholder="Enter the flag here">
                     <button type="submit">Submit Flag</button>
                 </form>
@@ -187,12 +217,12 @@
         </div>
 
         <div class="section">
-            <h3>Activity 3</h3>
-            <p>Description for Activity 3 goes here.</p>
-            <button onclick="location.href='activity3.php'">Start</button>
+            <h3>Steganography</h3>
+            <p>Use stylesuxx.github to find the hidden message.</p>
+            <button onclick="location.href='./steg/index.html'">Start</button>
 
             <div class="flag-form">
-                <form method="POST" action="submit_flag.php">
+                <form>
                     <input type="text" name="flag_activity3" placeholder="Enter the flag here">
                     <button type="submit">Submit Flag</button>
                 </form>
@@ -203,19 +233,136 @@
     <footer>
         &copy; 2025 Kritik Paudel. All rights reserved.
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js/dist/index.min.js"></script>
 
     <script>
-        // Example progress calculation logic
-        const progress = document.getElementById('progress');
-        let tasksCompleted = 0; // This should dynamically update based on submitted flags
-        const totalTasks = 3;
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
 
+        // Disable Key Combinations
+        document.addEventListener('keydown', function (e) {
+            // Check for specific key combinations
+            if (
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || // Ctrl+Shift+I
+                (e.ctrlKey && e.key === 'U') ||              // Ctrl+U
+                (e.ctrlKey && e.key === 'S') ||              // Ctrl+S
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || // Ctrl+Shift+J
+                (e.key === 'F12')                            // F12
+            ) {
+                e.preventDefault();
+                alert("This shortcut is disabled.");
+            }
+        });
+
+
+        const progress = document.getElementById('progress');
+        let tasksCompleted = 0;
+        const totalTasks = 3;
+    
+        // Predefined flags for activities
+        const correctFlags = {
+            flag_cyber_maze: "flag{ESC@PE_COMPLETE}",
+            flag_activity2: "f!@g{G0t_2nd_Fl@g_t00}",
+            flag_activity3: "f!@g{Th!s_ Is_8OOS_L!Fe}"
+        };
+    
+        // Update progress bar
         function updateProgress() {
             const progressPercentage = (tasksCompleted / totalTasks) * 100;
             progress.style.width = progressPercentage + '%';
         }
-
+    
+        // Show winner animation on full completion
+        function showCompletionAnimation() {
+            const body = document.body;
+    
+            // Add confetti effect
+            const confettiCanvas = document.createElement('canvas');
+            confettiCanvas.setAttribute('id', 'confetti-canvas');
+            confettiCanvas.style.position = 'fixed';
+            confettiCanvas.style.top = '0';
+            confettiCanvas.style.left = '0';
+            confettiCanvas.style.width = '100%';
+            confettiCanvas.style.height = '100%';
+            confettiCanvas.style.zIndex = '1000';
+            body.appendChild(confettiCanvas);
+    
+            const confetti = new ConfettiGenerator({ target: 'confetti-canvas' });
+            confetti.render();
+    
+            // Add popup glitter text
+            const popup = document.createElement('div');
+            popup.innerHTML = `
+                <div class="winner-popup">
+                    <h1>🎉 YOU DID IT! 🎉</h1>
+                    <p>All activities completed successfully!</p>
+                </div>
+            `;
+            popup.style.position = 'fixed';
+            popup.style.top = '50%';
+            popup.style.left = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.backgroundColor = '#fff';
+            popup.style.color = '#333';
+            popup.style.borderRadius = '15px';
+            popup.style.padding = '20px';
+            popup.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+            popup.style.textAlign = 'center';
+            popup.style.zIndex = '1001';
+            popup.style.animation = 'popIn 0.8s ease';
+    
+            body.appendChild(popup);
+    
+            // Cleanup animations after 10 seconds
+            setTimeout(() => {
+                confetti.clear();
+                popup.remove();
+                confettiCanvas.remove();
+            }, 10000);
+        }
+    
+        // Handle flag submission
+        document.querySelectorAll('.flag-form form').forEach((form) => {
+            const feedback = document.createElement('p'); // Feedback message
+            feedback.style.fontWeight = 'bold';
+            feedback.style.marginTop = '0.5rem';
+            form.appendChild(feedback);
+    
+            form.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent form from refreshing the page
+    
+                const inputField = form.querySelector('input[type="text"]');
+                const flagName = inputField.name;
+                const userFlag = inputField.value.trim();
+    
+                if (userFlag === correctFlags[flagName]) {
+                    if (!form.dataset.solved) { // Prevent multiple increments
+                        tasksCompleted++;
+                        form.dataset.solved = true;
+                        feedback.textContent = '✅ Correct flag! Activity completed.';
+                        feedback.style.color = 'green';
+                        updateProgress();
+    
+                        if (tasksCompleted === totalTasks) {
+                            showCompletionAnimation();
+                        }
+                    } else {
+                        feedback.textContent = 'ℹ️ You have already completed this activity!';
+                        feedback.style.color = 'blue';
+                    }
+                } else {
+                    feedback.textContent = '❌ Incorrect flag. Try again.';
+                    feedback.style.color = 'red';
+                }
+            });
+        });
+    
+        // Initialize progress on page load
         updateProgress();
     </script>
+    
+    
 </body>
 </html>
